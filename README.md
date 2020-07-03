@@ -51,8 +51,6 @@ Use
 - To run the formatter in one stroke, press `ctrl+e` for windows and linux
   or `super+e` for OSX. You can always change the keybinding in the
   keymap to your liking.
-- To change settings on a per-package basis, add them under `ClangFormat` key,
-  example project.sublime-settings:
 - To run the formatter in one stroke, press `ctrl+e` for windows and linux
   or `super+e` for OSX. You can always change the keybinding in the
   keymap to your liking.
@@ -63,6 +61,8 @@ Use
   [file patterns](https://www.sublimetext.com/docs/file_patterns.html)
 - The include/exclude patterns do not affect a manual format command, manual
   format commands will always format a file or selection
+- To change settings on a per-package basis, add them under `ClangFormat` key,
+  example project.sublime-settings:
 
 ```json
 {

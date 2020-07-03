@@ -55,7 +55,7 @@ Use
   example project.sublime-settings:
 - To run the formatter in one stroke, press `ctrl+e` for windows and linux
   or `super+e` for OSX. You can always change the keybinding in the
-  keymap to your likings.
+  keymap to your liking.
 - To whitelist/blacklist formatting of files and folders for format on save, the 
   `file_exclude_patterns`,`folder_exclude_patterns`,`file_include_patterns`,
   `folder_include_patterns` keys may be used;

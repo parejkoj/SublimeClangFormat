@@ -4,7 +4,7 @@ import subprocess, os
 
 # The styles available by default. We add one option: "Custom". This tells
 # the plugin to look in an ST settings file to load the customised style.
-styles  = ["LLVM", "Google", "Chromium", "Mozilla", "WebKit", "Custom", "File"]
+styles  = ["LLVM", "GNU", "Google", "Chromium", "Microsoft", "Mozilla", "WebKit", "Custom", "File"]
 
 
 # Settings file locations.
@@ -237,18 +237,23 @@ class ClangFormatCommand(sublime_plugin.TextCommand):
         else:
             regions = self.view.sel()
 
+        # Get all view to buf
+        buf = self.view.substr(sublime.Region(0, self.view.size()))
+
         for region in regions:
-            region_offset = region.begin()
-            region_length = region.size()
-
-            view = sublime.active_window().active_view()
-
             # If the command is run at the end of the line,
             # Run the command on the whole line.
-            if view.classify(region_offset) & sublime.CLASS_LINE_END > 0:
-                region        = view.line(region_offset)
-                region_offset = region.begin()
-                region_lenth  = region.size()
+            if self.view.classify(region.begin()) & sublime.CLASS_LINE_END > 0:
+                region = self.view.line(region.begin())
+            
+            sel = self.view.substr(region)
+            sel_bytes = sel.encode(encoding)
+
+            before_sel = buf[:region.begin()]
+            before_sel_bytes = before_sel.encode(encoding)
+
+            region_offset = len(before_sel_bytes)
+            region_length = len(sel_bytes)
 
             command.extend(['-offset', str(region_offset),
                             '-length', str(region_length)])
@@ -260,7 +265,6 @@ class ClangFormatCommand(sublime_plugin.TextCommand):
         # command.extend(['-output-replacements-xml'])
 
         # Run CF, and set buf to its output.
-        buf = self.view.substr(sublime.Region(0, self.view.size()))
         startupinfo = None
         if os_is_windows:
             startupinfo = subprocess.STARTUPINFO()

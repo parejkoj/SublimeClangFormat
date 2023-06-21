@@ -27,5 +27,5 @@
     // has its syntax set to a language in the list below. If it is in the list,
     // then the file will be formatted by ClangFormat.
 
-    "languages": ["C", "C++", "C++11", "JavaScript", "Objective-C", "Objective-C++"]
+    "languages": ["C", "C++", "C++11", "JavaScript", "Objective-C", "Objective-C++", "Protobuf"]
 }

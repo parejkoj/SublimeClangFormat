@@ -187,6 +187,7 @@ def load_settings():
     # We set these globals.
     global binary
     global style
+    global fallback_style
     global format_on_save
     global languages
     global file_include_patterns
@@ -200,6 +201,7 @@ def load_settings():
     # Load settings, with defaults.
     binary         = load('binary', default_binary)
     style          = load('style', styles[0])
+    fallback_style = load('fallback_style', None)
     format_on_save = load('format_on_save', False)
     languages      = load('languages', ['C', 'C++', 'C++11', 'JavaScript'])
     file_include_patterns = load('file_include_patterns', [])
@@ -331,6 +333,9 @@ class ClangFormatCommand(sublime_plugin.TextCommand):
             command = [binary, load_custom()]
         else:
             command = [binary, '-style', _style]
+
+        if fallback_style:
+            command.extend(['-fallback-style', fallback_style])
 
         regions = []
         if whole_buffer:
